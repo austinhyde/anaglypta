@@ -4,8 +4,8 @@
   "description": "A cross-platform wallpaper manager",
   "main": "index.js",
   "scripts": {
-    "start-electron": "nodemon --exec electron --watch main main/index.js",
-    "start-webpack": "webpack-dev-server --config-name renderer",
+    "start-electron": "cross-env NODE_ENV=development nodemon --watch main --exec electron main/index.js",
+    "start-webpack": "cross-env NODE_ENV=development nodemon --watch webpack.config.js --exec webpack-dev-server -- --config-name renderer",
     "build-webpack": "webpack --config-name renderer",
     "start": "concurrently \"npm run start-webpack\" \"npm run start-electron\""
   },
@@ -18,8 +18,10 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "concurrently": "^4.0.1",
+    "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
     "electron": "^2.0.8",
+    "electron-devtools-installer": "^2.2.4",
     "file-loader": "^1.1.11",
     "html-webpack-harddisk-plugin": "^0.2.0",
     "html-webpack-plugin": "^3.2.0",

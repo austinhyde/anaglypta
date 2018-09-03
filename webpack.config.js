@@ -12,6 +12,7 @@ module.exports = [
       path: path.resolve(__dirname, './dist'),
       filename: 'renderer.js',
     },
+    devtool: 'eval-source-map',
     devServer: {
       hot: true,
     },
