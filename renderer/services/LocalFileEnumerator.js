@@ -1,5 +1,6 @@
 import {readdir, stat} from 'fs';
 import * as path from 'path';
+import {asyncify} from '../../shared/utils';
 
 export default class LocalFileEnumerator {
   constructor({path, recurse=true, extensions=['.jpg','.jpeg','.png','.gif']}) {
@@ -27,9 +28,3 @@ const filterDirectories = async files => {
   return files.filter(fi => fi.info.isFile()).map(fi => fi.path);
 };
 const filterExtensions = exts => files => files.filter(f => exts.includes(path.extname(f)));
-
-const asyncify = (f, ...args) =>
-  new Promise((res, rej) =>
-    f(...args, (err, d) => err ? rej(err) : res(d)
-  )
-);
