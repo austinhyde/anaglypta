@@ -1,44 +1,17 @@
 import React from 'react';
-import {is} from 'electron-util';
-import {remote} from 'electron';
+import {when} from '../../shared/utils';
+import WindowsButtons from './WindowsButtons';
 
-export default function TitleBar(props) {
-  if (is.windows) {
-    return <WindowsTitleBar {...props}/>;
-  }
-  return null;
-}
+
+export default when({
+  windows: WindowsTitleBar,
+});
 
 function WindowsTitleBar({title}) {
   return (
-    <div className="titlebar windows horiz">
-      <div className="title grow">{title}</div>
-      <WindowsTitleBarButtons />
+    <div className="titlebar">
+      <div className="windowdrag" style={{width:'100%',height:'100%'}}/>
+      <WindowsButtons style={{position:'absolute',right:0,top:0}} />
     </div>
   );
-}
-
-function WindowsTitleBarButtons() {
-  return (
-    <div className="buttons horiz">
-      <div className="button minimize grow" onClick={minimize}><div/></div>
-      <div className="button maximize grow" onClick={maximize}><div/></div>
-      <div className="button close grow" onClick={close}><div/></div>
-    </div>
-  );
-}
-
-function minimize() {
-  remote.getCurrentWindow().minimize();
-}
-function maximize() {
-  const win = remote.getCurrentWindow();
-  if (win.isMaximized()) {
-    win.unmaximize();
-  } else {
-    win.maximize();
-  }
-}
-function close() {
-  remote.getCurrentWindow().close();
 }
