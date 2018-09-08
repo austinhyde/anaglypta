@@ -56,6 +56,9 @@ html {
 }
 
 .titlebar {
+  position: fixed;
+  right: 1px;
+  top: 1px;
   height: 30px;
   -webkit-app-region: drag;
 

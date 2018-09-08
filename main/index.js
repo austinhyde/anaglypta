@@ -14,7 +14,7 @@ function createWindow() {
   });
   window.loadURL('http://localhost:8080/index.html');
   window.on('closed', function () {
-    window = null;
+    currentWindow = null;
   });
   return window;
 }
@@ -28,7 +28,7 @@ async function devtools() {
 
 app.on('ready', async function(){
   currentWindow = createWindow();
-  devtools();
+  // devtools();
 });
 
 app.on('window-all-closed', function(){
