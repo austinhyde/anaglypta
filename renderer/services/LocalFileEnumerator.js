@@ -1,6 +1,9 @@
 import {readdir, stat} from 'fs';
 import * as path from 'path';
-import {asyncify} from '../../shared/utils';
+import {promisify} from 'util';
+
+const asyncReaddir = promisify(readdir);
+const asyncStat = promisify(stat);
 
 export default class LocalFileEnumerator {
   constructor({path, recurse=true, extensions=['.jpg','.jpeg','.png','.gif']}) {
@@ -13,8 +16,9 @@ export default class LocalFileEnumerator {
   async listFiles() {
     let files;
     if (this.recurse) {
+      // TODO
     } else {
-      files = await asyncify(readdir, this.path);
+      files = await asyncReaddir(this.path);
       files = files.map(f => path.join(this.path, f));
       files = await filterDirectories(files);
     }
@@ -23,8 +27,10 @@ export default class LocalFileEnumerator {
   }
 }
 
+const getFiles = dir => promisify(readdir)
+
 const filterDirectories = async files => {
-  files = await Promise.all(files.map(path => asyncify(stat, path).then(info => ({path, info}))));
+  files = await Promise.all(files.map(path => asyncStat(path).then(info => ({path, info}))));
   return files.filter(fi => fi.info.isFile()).map(fi => fi.path);
 };
 const filterExtensions = exts => files => files.filter(f => exts.includes(path.extname(f)));

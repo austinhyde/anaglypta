@@ -1,9 +1,10 @@
 const path = require('path');
 const {execFile} = require('child_process');
-const {asyncify, when} = require('../shared/utils');
+const {when} = require('../shared/utils');
+const {promisify} = require('util');
 
 const windowsBin = path.resolve(__dirname, '../bin/wallpaper.exe');
 
 module.exports.setWallpaper = when({
-  windows: file => asyncify(execFile, windowsBin, [path.resolve(file)]),
+  windows: file => promisify(execFile)(windowsBin, [path.resolve(file)]),
 });
