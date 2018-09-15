@@ -2,7 +2,7 @@ import {readdir, stat} from 'fs';
 import * as path from 'path';
 import {promisify} from 'util';
 import sizeOf from 'image-size';
-import {aspectRatio} from '../../shared/utils';
+import {aspectRatio} from '../utils';
 
 const asyncReaddir = promisify(readdir);
 const asyncStat = promisify(stat);
