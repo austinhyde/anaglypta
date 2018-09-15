@@ -1,7 +1,7 @@
 import React from 'react';
 
 const defaultOpts = {
-  ErrorComponent: ({error}) => <strong className="error">{error}</strong>,
+  ErrorComponent: ({error}) => <strong className="error">{error+''}</strong>,
   LoadingComponent: () => <em>Loading...</em>,
 }
 
@@ -20,7 +20,10 @@ export default (propMapper, opts=defaultOpts) => BaseComponent =>
         this.promise = allValuePromises(propMapper(props));
         this.promise.then(
           data => this.setState({loading: false, error: null, props: data}),
-          err => this.setState({loading: false, error: err, props: null}),
+          err => {
+            console.error(err);
+            this.setState({loading: false, error: err, props: null});
+          },
         );
       });
     }

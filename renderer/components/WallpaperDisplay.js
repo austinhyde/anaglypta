@@ -1,11 +1,13 @@
 import React from 'react';
 import {remote} from 'electron';
+import Bricks from './Bricks';
+import Image from './Image';
 const {setWallpaper} = remote.require('./wallpaper');
 
 export default function WallpaperDisplay({files}) {
   return (
-    <div>
-      {files.map(f => <img key={f} src={f} width="100%" onClick={() => setWallpaper(f)}/>)}
-    </div>
+    <Bricks className="wallpaper-display">
+      {files.map((f, i) => <Image key={f.path} i={i} file={f} onSetWallpaper={setWallpaper} />)}
+    </Bricks>
   )
 }

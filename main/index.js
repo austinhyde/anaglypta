@@ -14,7 +14,7 @@ function createWindow() {
       webSecurity:false
     }
   });
-  window.loadURL('http://localhost:8080/index.html');
+  window.loadURL('http://localhost:8085/index.html');
   window.on('closed', function () {
     currentWindow = null;
   });

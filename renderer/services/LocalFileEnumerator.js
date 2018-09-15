@@ -1,36 +1,51 @@
 import {readdir, stat} from 'fs';
 import * as path from 'path';
 import {promisify} from 'util';
+import sizeOf from 'image-size';
+import {aspectRatio} from '../../shared/utils';
 
 const asyncReaddir = promisify(readdir);
 const asyncStat = promisify(stat);
+const asyncSizeOf = promisify(sizeOf);
 
 export default class LocalFileEnumerator {
   constructor({path, recurse=true, extensions=['.jpg','.jpeg','.png','.gif']}) {
     this.path = path;
     this.recurse = recurse;
     this.extensions = extensions;
-
-    this.filter = filterExtensions(extensions);
   }
   async listFiles() {
-    let files;
+    let files = await getFiles(this.path);
+
     if (this.recurse) {
-      // TODO
+      // todo
     } else {
-      files = await asyncReaddir(this.path);
-      files = files.map(f => path.join(this.path, f));
-      files = await filterDirectories(files);
+      files = files.filter(f => !f.isDir);
     }
 
-    return this.filter(files);
+    files = files.filter(f => this.extensions.includes(f.ext));
+    files = await Promise.all(files.map(addImageSize));
+    return files;
   }
 }
 
-const getFiles = dir => promisify(readdir)
+const addImageSize = f => asyncSizeOf(f.path).then(({width, height}) =>({
+  ...f,
+  width,
+  height,
+  aspectRatio: aspectRatio(width, height),
+}))
 
-const filterDirectories = async files => {
-  files = await Promise.all(files.map(path => asyncStat(path).then(info => ({path, info}))));
-  return files.filter(fi => fi.info.isFile()).map(fi => fi.path);
-};
-const filterExtensions = exts => files => files.filter(f => exts.includes(path.extname(f)));
+const getFiles = dir => asyncReaddir(dir).then(fs =>
+  Promise.all(fs.map(f =>
+    asyncStat(path.resolve(dir, f)).then(s => ({
+      name: f,
+      path: path.resolve(dir, f),
+      ext: path.extname(f),
+      isDir: s.isDirectory(),
+      created: s.birthtime,
+      modified: s.mtime,
+    }))
+  ))
+);
+
