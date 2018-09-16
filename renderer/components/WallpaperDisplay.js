@@ -7,9 +7,8 @@ const {setWallpaper} = remote.require('./wallpaper');
 
 export default withWindowSize(function WallpaperDisplay({files, windowSize}) {
   const maxWidth = 500;
-  console.log(windowSize);
-  const cols = Math.floor(windowSize[0] / maxWidth);
-  // const cols = 3;
+  const minCols = 1;
+  const cols = Math.max(Math.floor(windowSize[0] / maxWidth), minCols);
   return (
     <Bricks className="wallpaper-display" cols={cols}>
       {files.map((f, i) => <Image key={f.path} i={i} file={f} onSetWallpaper={setWallpaper} />)}

@@ -5,6 +5,7 @@ import LocalFileEnumerator from './services/LocalFileEnumerator';
 import asyncProps from './hoc/asyncProps';
 
 import './styles.scss';
+import '@icon/themify-icons/themify-icons.css';
 
 const lfe = new LocalFileEnumerator({
   path: 'D:\\SynologyDrive\\dropbox\\wallpaper',

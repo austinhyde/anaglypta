@@ -80,10 +80,30 @@ html {
   .info {
     position: absolute;
     left: 0;
-    top: 0;
+    bottom: 4px;
     padding: 3px;
     font-size: .7em;
     background-color: rgba(#000, 0.3);
-    border-radius: 0 0 3px 0;
+    border-radius: 0 3px 0 0;
+  }
+  .controls {
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+    i {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      background-color: rgba(#000, 0.3);
+      cursor: pointer;
+      &:first-child {
+        border-radius: 3px 0 0 0;
+      }
+      &:hover {
+        background-color: rgba(#FFF, 0.2);
+      }
+    }
   }
 }

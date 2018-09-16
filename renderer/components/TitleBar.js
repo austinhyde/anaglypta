@@ -1,7 +1,8 @@
 import React from 'react';
 import {when} from '../../shared/utils';
 import WindowsButtons from './WindowsButtons';
-
+import folderSvg from '@icon/themify-icons/icons/folder.svg';
+import filterSvg from '@icon/themify-icons/icons/filter.svg';
 
 export default when({
   windows: WindowsTitleBar,
@@ -9,9 +10,26 @@ export default when({
 
 function WindowsTitleBar({title}) {
   return (
-    <div className="titlebar">
+    <div className="titlebar stack">
       <div className="windowdrag" style={{width:'100%',height:'100%'}}/>
-      <WindowsButtons style={{position:'absolute',right:0,top:0}} />
+      <div className="horiz">
+        <WindowsButtons
+          hideMaximize
+          hideMinimize
+          hideClose
+          customButtons={[
+            { icon: folderSvg,
+              onClick: () => console.log('click'),
+              iconProps: {style:{WebkitMaskSize: '30%'}},
+            },
+            { icon: filterSvg,
+              onClick: () => console.log('click'),
+              iconProps: {style:{WebkitMaskSize: '30%'}},
+            },
+          ]}
+        />
+        <WindowsButtons className="justify-end" />
+      </div>
     </div>
   );
 }
