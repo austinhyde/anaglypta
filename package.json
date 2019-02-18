@@ -1,16 +1,28 @@
 {
   "name": "anaglypta",
+  "productName": "Anaglypta",
   "version": "0.0.1",
+  "author": "Austin Hyde <austin109@gmail.com>",
+  "license": "MIT",
   "description": "A cross-platform wallpaper manager",
-  "main": "index.js",
+  "main": "src/main/index.js",
   "scripts": {
-    "start-electron": "cross-env NODE_ENV=development nodemon --watch main --exec electron main/index.js",
+    "clean": "rimraf build dist",
+    "start-electron": "cross-env NODE_ENV=development nodemon --watch src/main --watch src/common --exec electron src/main/index.js",
     "start-webpack": "cross-env NODE_ENV=development nodemon --watch webpack.config.js --exec webpack-dev-server -- --config-name renderer",
-    "build-webpack": "webpack --config-name renderer",
-    "start": "concurrently \"npm run start-webpack\" \"npm run start-electron\""
+    "start": "concurrently -k \"npm run start-webpack\" \"npm run start-electron\"",
+    "build": "webpack --config-name renderer",
+    "dist:electron": "electron-builder",
+    "dist": "npm run build && npm run dist:electron"
   },
-  "author": "",
-  "license": "ISC",
+  "build": {
+    "directories": {
+      "buildResources": ""
+    },
+    "win": {
+      "target": "portable"
+    }
+  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
@@ -18,20 +30,24 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "concurrently": "^4.0.1",
+    "cp-cli": "^1.1.2",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
-    "electron": "^2.0.8",
+    "electron": "^4.0.5",
+    "electron-builder": "^20.38.5",
     "electron-devtools-installer": "^2.2.4",
+    "electron-packager": "^13.0.1",
     "file-loader": "^1.1.11",
     "html-webpack-harddisk-plugin": "^0.2.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.9.0",
     "nodemon": "^1.18.4",
+    "rimraf": "^2.6.3",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.7.0",
-    "webpack-cli": "^2.1.2",
+    "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {

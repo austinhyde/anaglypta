@@ -2,19 +2,24 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+
+const IS_DEV = process.env.NODE_ENV === 'development';
+
 module.exports = [
   {
     name: 'renderer',
     target: 'electron-renderer',
     mode: 'development',
-    entry: path.resolve(__dirname, './renderer/index.js'),
+    entry: path.resolve(__dirname, './src/renderer/index.js'),
     output: {
-      path: path.resolve(__dirname, './dist'),
-      filename: 'renderer.js',
+      publicPath: IS_DEV ? `http://localhost:8085/` : path.resolve(__dirname, './build'),
+      path: path.resolve(__dirname, './build'),
+      filename: 'index.js',
     },
     devtool: 'eval-source-map',
     devServer: {
       hot: true,
+      overlay: true,
       port: 8085,
     },
     module: {

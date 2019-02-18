@@ -1,4 +1,6 @@
 const {app, BrowserWindow} = require('electron');
+const path = require('path');
+const {format:formatURL} = require('url');
 
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
@@ -7,14 +9,20 @@ let currentWindow;
 
 function createWindow() {
   const window = new BrowserWindow({
-    frame:false,
+    frame: false,
     width: 800,
     height: 600,
     webPreferences:{
       webSecurity:false
     }
   });
-  window.loadURL('http://localhost:8085/index.html');
+  const url = formatURL({
+    protocol: 'file',
+    slashes: true,
+    pathname: path.join(__dirname, '../../build/index.html'),
+  });
+  // console.log('loading url', url);
+  window.loadURL(url);
   window.on('closed', function () {
     currentWindow = null;
   });

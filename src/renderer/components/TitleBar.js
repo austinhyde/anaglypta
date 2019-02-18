@@ -1,5 +1,5 @@
 import React from 'react';
-import {when} from '../../shared/utils';
+import {when} from '../../common/utils';
 import WindowsButtons from './WindowsButtons';
 import folderSvg from '@icon/themify-icons/icons/folder.svg';
 import filterSvg from '@icon/themify-icons/icons/filter.svg';
