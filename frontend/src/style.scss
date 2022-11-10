@@ -1,0 +1,89 @@
+html,
+body,
+body>div {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #333344;
+    color: #ccc9c2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: default;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.full {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.vert,
+.horiz {
+    display: flex;
+    position: relative;
+
+    &>* {
+        flex: 0 0 auto;
+    }
+
+    &>.grow {
+        flex: 1 0 auto;
+    }
+
+    &.justify-center {
+        justify-content: center;
+    }
+
+    &.align-center {
+        align-items: center;
+    }
+
+    &>.align-start {
+        align-self: flex-start;
+    }
+
+    &>.align-end {
+        align-self: flex-end;
+    }
+}
+
+.vert {
+    flex-direction: column;
+
+    &>.justify-end {
+        margin-top: auto;
+    }
+}
+
+.horiz {
+    flex-direction: row;
+
+    &>* {
+        height: 100%;
+    }
+
+    &>.justify-end {
+        margin-left: auto;
+    }
+}
+
+.stack {
+    position: relative;
+
+    &>* {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+}
