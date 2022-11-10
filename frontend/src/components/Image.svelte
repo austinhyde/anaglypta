@@ -1,6 +1,11 @@
 <script>
+  import {SetWallpaper} from '../../wailsjs/go/main/App';
   export let file;
   import {aspectRatio} from '../utils';
+
+  function setWallpaper() {
+    SetWallpaper(file.Root, file.Path);
+  }
 </script>
 
 <style type="text/scss">
@@ -75,11 +80,11 @@
   }
 </style>
 
-<div class="image">
+<div class="image" on:click={setWallpaper}>
   <img src={`/image/${file.Root}/${file.Path}`} alt={file.Path}/>
   <div class="info">
     <span>{file.Size[0]}×{file.Size[1]} ({aspectRatio(file.Size[0], file.Size[1])})</span>
-    <span> - {file.Path.split('.').at(-1)}</span>
+    <span> - {file.Path}</span>
   </div>
   <div class="previews horiz align-center">
   </div>

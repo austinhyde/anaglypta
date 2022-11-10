@@ -5,7 +5,7 @@
 
   let innerWidth;
 
-  const maxWidth = 480;
+  const maxWidth = 300;
   const minCols = 1;
   $: cols = Math.max(Math.floor(innerWidth / maxWidth), minCols);
 </script>

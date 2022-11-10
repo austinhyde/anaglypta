@@ -17,3 +17,7 @@ export function ListRoots() {
 export function RemoveRoot(arg1) {
   return window['go']['main']['App']['RemoveRoot'](arg1);
 }
+
+export function SetWallpaper(arg1, arg2) {
+  return window['go']['main']['App']['SetWallpaper'](arg1, arg2);
+}

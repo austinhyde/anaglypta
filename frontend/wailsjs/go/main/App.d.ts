@@ -9,3 +9,5 @@ export function GetFiles():Promise<Array<main.ImageFile>>;
 export function ListRoots():Promise<Array<main.Root>>;
 
 export function RemoveRoot(arg1:string):Promise<void>;
+
+export function SetWallpaper(arg1:string,arg2:string):Promise<void>;
