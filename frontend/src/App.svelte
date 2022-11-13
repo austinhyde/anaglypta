@@ -1,6 +1,7 @@
 <script lang="ts">
   import { GetFiles, AddRoot } from "../wailsjs/go/main/App";
   import WallpaperDisplay from "./components/WallpaperDisplay.svelte";
+  import Loading from "./components/Loading.svelte";
 
   let filesPromise = (async function() {
     await AddRoot("/Users/austin/Drive/default/wallpaper");
@@ -8,9 +9,9 @@
   })();
 </script>
 
-<main>
+<main class="full">
   {#await filesPromise}
-    <em>Loading...</em>
+    <Loading/>
   {:then files}
     <WallpaperDisplay {files}/>
   {/await}

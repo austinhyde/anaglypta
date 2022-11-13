@@ -67,10 +67,6 @@ body>div {
 .horiz {
     flex-direction: row;
 
-    &>* {
-        height: 100%;
-    }
-
     &>.justify-end {
         margin-left: auto;
     }
