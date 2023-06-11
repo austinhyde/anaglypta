@@ -8,16 +8,45 @@
   }
 </script>
 
+<div class="image" on:click={setWallpaper}>
+  <img src={`/image/${file.Root}/${file.Path}`} alt={file.Path}/>
+  
+  <div class="info">
+    <!-- <span>{file.Size[0]}×{file.Size[1]} ({aspectRatio(file.Size[0], file.Size[1])})</span> -->
+    <span>{file.Path}</span>
+  </div>
+
+  <div class="overlay"></div>
+  <!-- <div class="previews horiz align-center">
+  </div> -->
+</div>
+
 <style type="text/scss">
   .image {
     position: relative;
-    img { width: 100%; }
-    margin-bottom: -4px;
+
+    img {
+      width: 100%;
+      margin-bottom: -3px;
+    }
+
+    .overlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    &:hover {
+      .overlay { border: 1px solid #EEE; }
+      cursor: pointer;
+    }
 
     .info {
       position: absolute;
       left: 0;
-      bottom: 4px;
+      bottom: 0;
       padding: 3px;
       font-size: .7em;
       background-color: rgba(#000, 0.3);
@@ -79,13 +108,3 @@
     }
   }
 </style>
-
-<div class="image" on:click={setWallpaper}>
-  <img src={`/image/${file.Root}/${file.Path}`} alt={file.Path}/>
-  <div class="info">
-    <span>{file.Size[0]}×{file.Size[1]} ({aspectRatio(file.Size[0], file.Size[1])})</span>
-    <span> - {file.Path}</span>
-  </div>
-  <div class="previews horiz align-center">
-  </div>
-</div>

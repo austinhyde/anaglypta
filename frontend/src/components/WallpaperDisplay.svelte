@@ -10,9 +10,7 @@
   $: cols = Math.max(Math.floor(innerWidth / maxWidth), minCols);
 </script>
 
-<svelte:window bind:innerWidth/>
-
-<div class="grow">
+<div class="full" bind:clientWidth={innerWidth}>
   <Bricks {cols} items={files} let:item={file}>
     <Image {file}/>
   </Bricks>

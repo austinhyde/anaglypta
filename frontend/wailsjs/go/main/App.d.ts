@@ -10,4 +10,6 @@ export function ListRoots():Promise<Array<main.Root>>;
 
 export function RemoveRoot(arg1:string):Promise<void>;
 
-export function SetWallpaper(arg1:string,arg2:string):Promise<Error>;
+export function SelectDirectory():Promise<string>;
+
+export function SetWallpaper(arg1:string,arg2:string):Promise<void>;

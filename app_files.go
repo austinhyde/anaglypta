@@ -1,7 +1,6 @@
 package main
 
 import (
-	"image"
 	"io/fs"
 	"log"
 	"os"
@@ -24,13 +23,21 @@ type Root struct {
 }
 
 type ImageFile struct {
-	Root string
-	Path string
-	Type string
-	Size []int
+	Root         string
+	Path         string
+	Type         string
+	Size         []int
+	LastModified string
+	Filesize     int64
 }
 
 func (a *App) AddRoot(path string) {
+	for _, root := range a.roots {
+		if root.Path == path {
+			return
+		}
+	}
+
 	root := Root{
 		ID:   uuid.New().String(),
 		Path: path,
@@ -92,18 +99,25 @@ func getFiles(id, root string) ([]ImageFile, error) {
 		}
 		defer f.Close()
 
-		img, format, err := image.Decode(f)
+		info, err := f.Stat()
 		if err != nil {
 			return ImageFile{}, err
 		}
 
-		bounds := img.Bounds()
+		// img, format, err := image.Decode(f)
+		// if err != nil {
+		// 	return ImageFile{}, err
+		// }
+
+		// bounds := img.Bounds()
 
 		return ImageFile{
 			Root: id,
-			Path: strings.TrimPrefix(path, root+"/"),
-			Type: format,
-			Size: []int{bounds.Dx(), bounds.Dy()},
+			Path: strings.TrimPrefix(path, root+string(os.PathSeparator)),
+			// Type: format,
+			// Size: []int{bounds.Dx(), bounds.Dy()},
+			LastModified: info.ModTime().Format(time.RFC3339),
+			Filesize:     info.Size(),
 		}, nil
 	})
 }

@@ -1,13 +1,33 @@
+:root {
+    --grey-6: #EEE;
+    --grey-5: #c2c7cc;
+    --grey-4: #767a85;
+    --grey-3: #48484f;
+    --grey-2: #414150;
+    --grey-1: #333344;
+    --grey-0: #222;
+
+    --bg-color: var(--grey-1);
+    --active-bg-color: var(--grey-2);
+    --hover-bg-color: var(--grey-3);
+    --fg-color: var(--grey-5);
+
+    --inv-bg-color: var(--grey-6);
+    --inv-hover-bg-color: var(--grey-5);
+    --inv-active-bg-color: var(--grey-4);
+    --inv-fg-color: var(--grey-0);
+}
+
 html,
-body,
-body>div {
+body {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #333344;
-    color: #ccc9c2;
+    background-color: var(--bg-color);
+    color: var(--fg-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
 
     -webkit-user-select: none;
     user-select: none;
@@ -24,6 +44,16 @@ body>div {
     height: 100%;
     padding: 0;
     margin: 0;
+    // overflow: hidden;
+}
+
+.float {
+    position: absolute;
+    z-index: 1000;
+}
+
+.scrollable {
+    overflow: auto;
 }
 
 .vert,
@@ -31,12 +61,24 @@ body>div {
     display: flex;
     position: relative;
 
+    &.shrink {
+        width: fit-content;
+        height: fit-content;
+    }
+
     &>* {
-        flex: 0 0 auto;
+        flex: 0 0 0;
     }
 
     &>.grow {
         flex: 1 0 auto;
+    }
+    &>.shrink {
+        flex: 0 1 auto;
+    }
+    &>.rest {
+        flex: 1 1 auto;
+        // overflow: auto;
     }
 
     &.justify-center {
@@ -81,5 +123,59 @@ body>div {
         right: 0;
         top: 0;
         bottom: 0;
+    }
+}
+
+h1 {
+    font-size: 1.1em;
+}
+h2 {
+    font-size: 1.05em;
+}
+
+button {
+    --button-bg-color: var(--bg-color);
+    --button-fg-color: var(--fg-color);
+    --button-hover-bg-color: var(--hover-bg-color);
+    --button-active-bg-color: var(--active-bg-color);
+
+    &.invert {
+        --button-bg-color: var(--inv-bg-color);
+        --button-fg-color: var(--inv-fg-color);
+        --button-hover-bg-color: var(--inv-hover-bg-color);
+        --button-active-bg-color: var(--inv-active-bg-color);
+    }
+
+    background-color: var(--button-bg-color);
+    color: var(--button-fg-color);
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    vertical-align: 0%;
+    
+    iconify-icon {
+        vertical-align: text-bottom;
+    }
+
+    &.size-big {
+        font-size: 2em;
+    }
+
+    &:hover {
+        background-color: var(--button-hover-bg-color);
+    }
+    &:active {
+        background-color: var(--button-active-bg-color);
+    }
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+
+    li:not(:last-child) {
+        margin-bottom: 10px;
     }
 }

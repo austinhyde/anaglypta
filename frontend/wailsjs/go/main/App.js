@@ -18,6 +18,10 @@ export function RemoveRoot(arg1) {
   return window['go']['main']['App']['RemoveRoot'](arg1);
 }
 
+export function SelectDirectory() {
+  return window['go']['main']['App']['SelectDirectory']();
+}
+
 export function SetWallpaper(arg1, arg2) {
   return window['go']['main']['App']['SetWallpaper'](arg1, arg2);
 }

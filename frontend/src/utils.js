@@ -15,3 +15,12 @@ export function lerp(x, [x0, x1], [y0, y1], clamp=false) {
 export function bucketLerp(x, [min, max], buckets) {
   return buckets[Math.floor(lerp(x, [min, max], [0, buckets.length-1], true))];
 }
+
+export function getAbsoluteOffset(el) {
+  const out = [el.offsetLeft, el.offsetTop];
+  while (el = el.offsetParent) {
+    out[0] += el.offsetLeft;
+    out[1] += el.offsetTop;
+  }
+  return out;
+}
